@@ -1,72 +1,13 @@
-<html>
+<!DOCTYPE html>
+<html lang="en" xml:lang="en">
   <head>
+    <title>TIPSWeb</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
   </head>
   <body>
-    <div class="banner">
-      <h1>
-        <table align="center" class="logo">
-          <tbody>
-            <tr>
-              <td class="f">&nbsp;</td><td class="f">&nbsp;</td><td class="f">&nbsp;</td>
-              <td class="f">&nbsp;</td><td class="f">&nbsp;</td><td class="f">&nbsp;</td>
-              <td class="f">&nbsp;</td><td class="f">&nbsp;</td><td class="f">&nbsp;</td>
-              <td class="f">&nbsp;</td><td class="f">&nbsp;</td><td class="f">&nbsp;</td>
-              <td class="f">&nbsp;</td><td class="f">&nbsp;</td><td class="f">&nbsp;</td>
-            </tr>
-            <tr>
-              <td class="f">&nbsp;</td><td class="t">&nbsp;</td><td class="t">&nbsp;</td>
-              <td class="t">&nbsp;</td><td class="f">&nbsp;</td><td class="t">&nbsp;</td>
-              <td class="f">&nbsp;</td><td class="t">&nbsp;</td><td class="t">&nbsp;</td>
-              <td class="t">&nbsp;</td><td class="f">&nbsp;</td><td class="t">&nbsp;</td>
-              <td class="t">&nbsp;</td><td class="t">&nbsp;</td><td class="f">&nbsp;</td>
-            </tr>
-            <tr>
-              <td class="f">&nbsp;</td><td class="f">&nbsp;</td><td class="t">&nbsp;</td>
-              <td class="f">&nbsp;</td><td class="f">&nbsp;</td><td class="t">&nbsp;</td>
-              <td class="f">&nbsp;</td><td class="t">&nbsp;</td><td class="f">&nbsp;</td>
-              <td class="t">&nbsp;</td><td class="f">&nbsp;</td><td class="t">&nbsp;</td>
-              <td class="f">&nbsp;</td><td class="f">&nbsp;</td><td class="f">&nbsp;</td>
-            </tr>
-            <tr>
-              <td class="f">&nbsp;</td><td class="f">&nbsp;</td><td class="t">&nbsp;</td>
-              <td class="f">&nbsp;</td><td class="f">&nbsp;</td><td class="t">&nbsp;</td>
-              <td class="f">&nbsp;</td><td class="t">&nbsp;</td><td class="t">&nbsp;</td>
-              <td class="t">&nbsp;</td><td class="f">&nbsp;</td><td class="t">&nbsp;</td>
-              <td class="t">&nbsp;</td><td class="t">&nbsp;</td><td class="f">&nbsp;</td>
-            </tr>
-            <tr>
-              <td class="f">&nbsp;</td><td class="f">&nbsp;</td><td class="t">&nbsp;</td>
-              <td class="f">&nbsp;</td><td class="f">&nbsp;</td><td class="t">&nbsp;</td>
-              <td class="f">&nbsp;</td><td class="t">&nbsp;</td><td class="f">&nbsp;</td>
-              <td class="f">&nbsp;</td><td class="f">&nbsp;</td><td class="f">&nbsp;</td>
-              <td class="f">&nbsp;</td><td class="t">&nbsp;</td><td class="f">&nbsp;</td>
-            </tr>
-            <tr>
-              <td class="f">&nbsp;</td><td class="f">&nbsp;</td><td class="t">&nbsp;</td>
-              <td class="f">&nbsp;</td><td class="f">&nbsp;</td><td class="t">&nbsp;</td>
-              <td class="f">&nbsp;</td><td class="t">&nbsp;</td><td class="f">&nbsp;</td>
-              <td class="f">&nbsp;</td><td class="f">&nbsp;</td><td class="t">&nbsp;</td>
-              <td class="t">&nbsp;</td><td class="t">&nbsp;</td><td class="f">&nbsp;</td>
-            </tr>
-            <tr>
-              <td class="f">&nbsp;</td><td class="f">&nbsp;</td><td class="f">&nbsp;</td>
-              <td class="f">&nbsp;</td><td class="f">&nbsp;</td><td class="f">&nbsp;</td>
-              <td class="f">&nbsp;</td><td class="f">&nbsp;</td><td class="f">&nbsp;</td>
-              <td class="f">&nbsp;</td><td class="f">&nbsp;</td><td class="f">&nbsp;</td>
-              <td class="f">&nbsp;</td><td class="f">&nbsp;</td><td class="f">&nbsp;</td>
-            </tr>
-          </tbody>
-        </table>
-      </h1>
-      {% if session %}
-          <a href="/logout" class="login-btn">Logout</a>
-      {% else %}
-          <a href="/login" class="login-btn">Login</a>
-      {% endif %}
-    </div>
+    {% include 'banner.html' %}
 
     <!-- Main content section with a card and a photo -->
     <div class="container">
@@ -82,14 +23,17 @@
           <p><strong>Originality:</strong> Unlike existing commercial surgical training tools that focus on fixed tasks like suturing, TIPS empowers specialist surgeons to author and illustrate complex procedures, opening a new channel for communication and education.</p>
         </div>
         <div class="photo">
-          <img src="{{ url_for('static', filename='images/surgery_sample.jpg') }}" alt="TIPS Project Image">
+          <img src="{{ url_for('static', filename='images/surgery_sample.jpg') }}" alt="TIPS Project Sample">
         </div>
       </div>
       
       <!-- Begin Button placed underneath the main content -->
       <div class="begin-button-container">
-        <button type="button">Begin</button>
+        <button type="button" id="begin-button">Begin</button>
       </div>
     </div>
+
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+
   </body>
 </html>

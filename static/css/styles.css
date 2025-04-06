@@ -2,16 +2,10 @@ body {
   font-family: Arial, sans-serif;
   display: flex;
   justify-content: center;
-  /*align-items: center;*/
+  align-items: center;
   height: 100vh;
   margin: 0;
   background-color: #f4f4f9;
-  align-items: flex-start;
-  flex-direction: column;
-}
-
-:root {
-  --banner-height: 80px;
 }
 
 .banner {
@@ -26,12 +20,12 @@ body {
   left: 0;
   right: 0;
   z-index: 1000;
-  height: var(--banner-height);
+  height: 80px;
 }
 
 .login-btn {
   background-color: white;
-  color: #2c3e50;;
+  color: #2c3e50;
   padding: 1rem 2rem; 
   border: none;
   border-radius: 4px;
@@ -47,23 +41,33 @@ body {
   background: silver;
 }
 
-table.logo{
-    height:55px;
-		width:170px;
-		font-size:2px;
-		border-collapse:collapse;
-		table-layout:fixed;
+.logo {
+  display: grid;
+  grid-template-columns: repeat(15, 1fr);
+  grid-template-rows: repeat(7, 1fr);
+  border-collapse:collapse;
+  height: 55px;
+  width: 170px;
+  font-size: 2px;
+  gap: 0;
+  margin-left: auto;
+  margin-right: auto;
 }
-table.logo td{
-		border:1px solid black;
+
+.logo > div {
+  border-right: 1px solid black;
+  border-bottom: 1px solid black;
+  position: relative;
 }
-table.logo td.f{
-		border-spacing:0px;
-		background-color:silver;
+
+.logo .f {
+  border-spacing:0px;
+  background-color: silver;
 }
-table.logo td.t{
-	  border-spacing:0px;
-		background-color:black;
+
+.logo .t {
+  border-spacing:0px;
+  background-color: black;
 }
 
 .user-list {
@@ -165,11 +169,10 @@ table.logo td.t{
   margin: 10px 0;
 }
 
-/* wrapper for centering content */
+/* Optional wrapper for centering content */
 .container {
   max-width: auto;
   margin: 0 auto;
-  margin-top: calc(var(--banner-height) + 20px); 
 }
 /* Flex container for the main content */
 .main-content {

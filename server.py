@@ -68,7 +68,7 @@ def validate_token(token):
         )
         logging.info("Token validated successfully.")
         return token_payload
-    except (ExpiredSignatureError, JWTError, JWSError, JWTClaimsError) as error:
+    except ( JWTError, JWSError) as error:
         logging.error(f"Token validation error: {error}")
         return None
 
@@ -134,14 +134,18 @@ def index():
 
 @app.route("/login")
 def login():
+    ##for gke app if user not logged in
+    return_to = request.args.get('return_to')
+    if return_to:
+        session['return_to'] = return_to
+
     auth_redirect = oauth.auth0.authorize_redirect(
         redirect_uri=url_for("callback", _external=True, _scheme='http' if is_local else 'https'),
         audience=env.get("AUTH0_AUDIENCE"),
         response_type="code",
         scope="offline_access openid profile email"
     )
-    #auth_url = f"https://{env.get("AUTH0_DOMAIN")}/authorize?{auth_redirect.location.split('?')[1]}"
-    return auth_redirect #redirect(auth_url) 
+    return auth_redirect 
 
 @app.route("/callback", methods=["GET", "POST"])
 def callback():
@@ -155,7 +159,14 @@ def callback():
             "permissions": token_payload.get("permissions", [])
         }
 
-        return redirect("/")
+        return_to = session.pop('return_to', None)
+    
+        # If return_to exists, redirect there; otherwise go to home page
+        if return_to:
+            return redirect(return_to)
+        else:
+            return redirect('/')
+        #return redirect("/")
     except requests.exceptions.HTTPError as http_err:
         logging.error(f"HTTP error during token exchange: {http_err}")
         return str(http_err), 401
@@ -182,6 +193,18 @@ def logout():
     )
     logging.info(f"Redirecting to logout URL: {logout_url}")
     return redirect(logout_url)
+
+@app.route('/gke-app')
+def gke_app():
+    # This is a placeholder route that will eventually redirect to the GKE deployment
+    # For now, it shows a message indicating the GKE deployment is coming soon
+    if not session.get('user'):
+        # Redirect to login page with a return_to parameter
+        return redirect(url_for('login', return_to='/gke-app'))
+      
+    gke_url = "https://media.istockphoto.com/id/1418210562/photo/brazil-wildlife-capybara-hydrochoerus-hydrochaeris-biggest-mouse-near-the-water-with-evening.jpg?s=1024x1024&w=is&k=20&c=AzD8FahPVht7LfDs1WT5snMDHHi1pMvH7lnsgmzgfpA="
+    return render_template('gke-app.html', gke_url=gke_url)
+
 
 @app.route('/admin')
 @requires_admin
@@ -217,6 +240,12 @@ def admin_dashboard():
 @app.route('/admin/delete-user/<user_id>', methods=['DELETE'])
 @requires_admin
 def delete_user(user_id):
+    ##added to protect against vulneribility
+    import re
+    if not re.match(r'^[a-zA-Z0-9_-]+$', user_id):
+        return jsonify({"status": "error", "message": "Invalid user ID format"}), 400
+    ##
+
     payload = {
         "client_id": env.get("M2M_CLIENT_ID"),
         "client_secret": env.get("M2M_CLIENT_SECRET"),
@@ -232,11 +261,19 @@ def delete_user(user_id):
     token = token_response.json()
     
     headers = {'Authorization': f'Bearer {token["access_token"]}'}
+    # delete_response = requests.delete(
+    #     f'https://{env.get("M2M_DOMAIN")}/api/v2/users/{user_id}',
+    #     headers=headers
+    # )
+
+    ##Avoiding URL construction from user data
+    base_url = f'https://{env.get("M2M_DOMAIN")}/api/v2/users/'
     delete_response = requests.delete(
-        f'https://{env.get("M2M_DOMAIN")}/api/v2/users/{user_id}',
+        base_url + user_id,
         headers=headers
     )
-    
+    ##
+
     return jsonify({"status": "success" if delete_response.ok else "error"})
 
 
