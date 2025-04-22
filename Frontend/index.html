@@ -33,16 +33,8 @@
         <!-- Horizontal scrolling cards section -->
       <div class="learn-more-section">
         <h2>Learn More </h2>
-        <!-- <div class="scroll-controls">
-            <button class="scroll-btn" id="scroll-left">← Previous</button>
-            <button class="scroll-btn" id="scroll-right">Next →</button>
-        </div> -->
         
         <div class="cards-container" id="cards-container">
-            <!-- <div class="info-card">
-                <h3>Our Goal</h3>
-                <p>Creating and broadly disseminating a low-cost, computer-based, 3D interactive multimedia authoring and learning environment including force feedback for communication of surgical procedures - that places the specialist in control and at the center of content creation.</p>
-            </div> -->
             <div class="info-card">
                 <h3>Publications</h3>
                 <p>Access research papers and publications related to the TIPS project:</p>
@@ -69,35 +61,7 @@
       </div>
       
     </div>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const container = document.getElementById('cards-container');
-            const leftBtn = document.getElementById('scroll-left');
-            const rightBtn = document.getElementById('scroll-right');
-            const cardWidth = 320; // card width + gap
-            
-            // Scroll left button
-            leftBtn.addEventListener('click', function() {
-                container.scrollBy({
-                    left: -cardWidth,
-                    behavior: 'smooth'
-                });
-            });
-            
-            // Scroll right button
-            rightBtn.addEventListener('click', function() {
-                container.scrollBy({
-                    left: cardWidth,
-                    behavior: 'smooth'
-                });
-            });
-            
-            // Begin button functionality
-            document.getElementById('begin-button').addEventListener('click', function() {
-                window.location.href = '/launch-app';
-            });
-        });
-    </script>
+    
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
 </body>
 </html>
