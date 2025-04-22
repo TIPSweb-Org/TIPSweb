@@ -1,75 +1,107 @@
+
 <!DOCTYPE html>
 <html lang="en" xml:lang="en">
-  <head>
+<head>
     <title>TIPSWeb</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link
-      rel="stylesheet"
-      href="{{ url_for('static', filename='css/styles.css') }}"
-    />
-  </head>
-  <body>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}"/>
+</head>
+<body>
     {% include 'banner.html' %}
-
-    <!-- Main content section with a card and a photo -->
+    
     <div class="container">
-      <!-- Main content section with a card and a photo -->
-      <div class="main-content">
-        <div class="card">
-          <h2>Toolkit for Illustration of Procedures in Surgery (TIPS)</h2>
-          <p>
-            <strong>Overview:</strong> TIPS is a new collaborative partnership
-            of surgeons and IT researchers leveraging low-cost hardware and
-            advanced software. Such illustrations are needed for publishing,
-            documenting, teaching, instruction and continuing education outreach
-            and for legal proceedings involving medical documentation.
-          </p>
-          <p>
-            <strong>Key People:</strong> Dr. Jörg Peters, Minho Kim, Sukitti
-            Punak, Tianyun Ni, Young In Yeo, Ashish Myles, Dr. Juan Cendan,
-            Sergei N. Kurenov
-          </p>
-          <p>
-            <strong>Contact:</strong> Dr. Jörg Peters (<a
-              href="mailto:jorg@cise.ufl.edu"
-              >jorg@cise.ufl.edu</a
-            >)
-          </p>
-          <p>
-            <strong>Our Goal:</strong> Creating and broadly disseminating a
-            low-cost, computer-based, 3D interactive multimedia authoring and
-            learning environment including force feedback for communication of
-            surgical procedures - that places the specialist in control and at
-            the center of content creation.
-          </p>
-          <p>
-            <strong>Website:</strong>
-            <a href="http://www.cise.ufl.edu/research/SurfLab/TIPS/"
-              >TIPS Project Page</a
-            >
-          </p>
-          <p>
-            <strong>Originality:</strong> Unlike existing commercial surgical
-            training tools that focus on fixed tasks like suturing, TIPS
-            empowers specialist surgeons to author and illustrate complex
-            procedures, opening a new channel for communication and education.
-          </p>
+        <!-- Main content section with a card and a photo -->
+        <div class="main-content">
+            <div class="card">
+                <h2>Toolkit for Illustration of Procedures in Surgery (TIPS)</h2>
+                <p><strong>Overview:</strong> TIPS is a new collaborative partnership of surgeons and IT researchers leveraging low-cost hardware and advanced software. Such illustrations are needed for publishing, documenting, teaching, instruction and continuing education outreach and for legal proceedings involving medical documentation.</p>
+                <p><strong>Key People:</strong> Dr. Jörg Peters, Minho Kim, Sukitti Punak, Tianyun Ni, Young In Yeo, Ashish Myles, Dr. Juan Cendan, Sergei N. Kurenov</p>
+                <p><strong>Contact:</strong> Dr. Jörg Peters (<a href="mailto:jorg@cise.ufl.edu">jorg@cise.ufl.edu</a>)</p>
+                <p> <strong>Our Goal:</strong> Creating and broadly disseminating a low-cost, computer-based, 3D interactive multimedia authoring and learning environment including force feedback for communication of surgical procedures - that places the specialist in control and at the center of content creation.</p>
+            </div>
+            <div class="photo">
+                <img src="{{ url_for('static', filename='images/surgery_sample.jpg') }}" alt="TIPS Project Sample"/>
+            </div>
         </div>
-        <div class="photo">
-          <img
-            src="{{ url_for('static', filename='images/surgery_sample.jpg') }}"
-            alt="TIPS Project Sample"
-          />
-        </div>
-      </div>
 
-      <!-- Begin Button placed underneath the main content -->
-      <div class="begin-button-container">
-        <button type="button" id="begin-button">Begin</button>
+        <!-- Begin Button placed underneath the main content -->
+        <div class="begin-button-container">
+          <button type="button" id="begin-button">Begin</button>
+        </div>
+
+        <!-- Horizontal scrolling cards section -->
+      <div class="learn-more-section">
+        <h2>Learn More </h2>
+        <!-- <div class="scroll-controls">
+            <button class="scroll-btn" id="scroll-left">← Previous</button>
+            <button class="scroll-btn" id="scroll-right">Next →</button>
+        </div> -->
+        
+        <div class="cards-container" id="cards-container">
+            <!-- <div class="info-card">
+                <h3>Our Goal</h3>
+                <p>Creating and broadly disseminating a low-cost, computer-based, 3D interactive multimedia authoring and learning environment including force feedback for communication of surgical procedures - that places the specialist in control and at the center of content creation.</p>
+            </div> -->
+            <div class="info-card">
+                <h3>Publications</h3>
+                <p>Access research papers and publications related to the TIPS project:</p>
+                <a href="https://www.cise.ufl.edu/research/SurfLab/TIPS/pubs.php" class="card-button" target="_blank">Here</a>
+            </div>
+            <div class="info-card">
+                <h3>Originality</h3>
+                <p>Unlike existing commercial surgical training tools that focus on fixed tasks like suturing, TIPS empowers specialist surgeons to author and illustrate varying procedures, opening a new channel for communication and education.</p>
+            </div>
+            <div class="info-card">
+                <h3>Technology</h3>
+                <p>TIPS uses advanced 3D modeling, force feedback, and interactive visualization to create realistic surgical simulations that can be customized by medical professionals.</p>
+            </div>
+            <div class="info-card">
+                <h3>More for Authors</h3>
+                <p>Find FAQs and additional resources for content creators and authors:</p>
+                <a href="http://tips-author.appspot.com/#/faqs" class="card-button" target="_blank">Here</a>
+            </div>
+            <div class="info-card">
+                <h3>Applications</h3>
+                <p>TIPS can be used for medical education, surgical planning, patient education, and documentation of novel surgical techniques.</p>
+            </div>
+            <div class="info-card">
+                <h3>Resources</h3>
+                <p>Visit the <a href="http://www.cise.ufl.edu/research/SurfLab/TIPS/">TIPS Project Page</a> for more information and resources.</p>
+            </div>
+        </div>
       </div>
+      
     </div>
 
-    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
-  </body>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const container = document.getElementById('cards-container');
+            const leftBtn = document.getElementById('scroll-left');
+            const rightBtn = document.getElementById('scroll-right');
+            const cardWidth = 320; // card width + gap
+            
+            // Scroll left button
+            leftBtn.addEventListener('click', function() {
+                container.scrollBy({
+                    left: -cardWidth,
+                    behavior: 'smooth'
+                });
+            });
+            
+            // Scroll right button
+            rightBtn.addEventListener('click', function() {
+                container.scrollBy({
+                    left: cardWidth,
+                    behavior: 'smooth'
+                });
+            });
+            
+            // Begin button functionality
+            document.getElementById('begin-button').addEventListener('click', function() {
+                window.location.href = '/simulation';
+            });
+        });
+    </script>
+</body>
 </html>
