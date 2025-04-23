@@ -575,4 +575,4 @@ def auth_info():
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 3000))
     logging.info(f"Starting Flask app on port {port}")
-    app.run(debug=True, host="0.0.0.0", port=port)
+    app.run(host="0.0.0.0", port=port)
